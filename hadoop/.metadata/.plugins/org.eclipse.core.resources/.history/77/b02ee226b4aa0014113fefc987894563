@@ -1,0 +1,16 @@
+package com.mbaxi.hadoop;
+
+/**
+ * Hello world!
+ *
+ */
+public class MapRedA 
+{
+	private static class DendrogramMapper extends Mapper<LongWritable,Text,Text,Text> {
+		
+	}
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+    }
+}

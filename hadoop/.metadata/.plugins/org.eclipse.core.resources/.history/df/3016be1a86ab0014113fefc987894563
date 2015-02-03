@@ -1,0 +1,29 @@
+package com.mbaxi.hadoop;
+
+import org.apache.hadoop.mapreduce.Job;
+
+public class WorkFlow {
+
+	public static void main(String[] args) {
+		processJobA(args);
+		processJobB(args);
+
+	}
+
+	private static void processJobB(String[] args) {
+		String inputPath = args[0];
+		String outPath = args[1];
+		
+		String[] inPaths = new String[]{inputPath, outPath}; 
+				
+		Job mapRedA = MapRedA.getJob(inPaths); 
+		mapRedA.submit();
+		mapRedA.waitForCompletion(true);
+		
+	}
+
+	private static void processJobA(String[] args) {
+		
+	}
+
+}

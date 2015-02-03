@@ -1,0 +1,11 @@
+package com.mbaxi.hadoop;
+
+public class WorkFlow {
+
+	public static void main(String[] args) {
+		processJobA(args);
+		processJobB(args);
+
+	}
+
+}

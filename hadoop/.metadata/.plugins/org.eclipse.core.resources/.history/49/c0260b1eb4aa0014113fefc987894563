@@ -1,0 +1,14 @@
+package com.mbaxi.hadoop;
+
+/**
+ * Hello world!
+ *
+ */
+public class MapRedA 
+{
+	
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+    }
+}
