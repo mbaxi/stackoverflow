@@ -1,0 +1,10 @@
+package com.mbaxi.hadoop;
+
+public class MapRedB {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

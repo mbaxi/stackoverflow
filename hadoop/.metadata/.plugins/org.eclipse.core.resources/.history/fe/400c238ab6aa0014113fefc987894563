@@ -1,0 +1,87 @@
+package com.mbaxi.hadoop;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+
+/**
+ * Hello world!
+ *
+ */
+public class MapRedA 
+{
+	private static class MapRed_A_Mapper extends Mapper<Object,Text,Text,IntWritable> {
+		private final static IntWritable one = new IntWritable(1);
+	    private Text word = new Text();
+
+	    public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+	    	StringTokenizer itr = new StringTokenizer(value.toString());
+	    	while (itr.hasMoreTokens()) {
+	    		word.set(itr.nextToken());
+	    		context.write(word, one);
+	    	}
+	    }
+	}
+	private static class MapRed_A_Reducer extends Reducer<Text,IntWritable,Text,IntWritable> {
+		private IntWritable result = new IntWritable();
+
+		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+	      int sum = 0;
+	      for (IntWritable val : values) {
+	        sum += val.get();
+	      }
+	      result.set(sum);
+	      context.write(key, result);
+	    }
+	}
+	public static Job getJob(String[] args, String bin) throws IOException, URISyntaxException
+	{
+		Configuration conf = get_Config();
+		GenericOptionsParser gop = new GenericOptionsParser(args);
+
+		conf = gop.getConfiguration();
+		String[] otherArgs = gop.getRemainingArgs();
+		conf.setInt("mapreduce.input.lineinputformat.linespermap", 3000);
+		conf.setLong("mapred.task.timeout", 180000000);
+		conf.setBoolean("mapred.reduce.tasks.speculative.execution", false);
+		conf.set("mapred.tasktracker.reduce.tasks.maximum", "1");
+		
+		DistributedCache.addCacheFile(new URI(YMAConstants.DIE_TEMPLATE_FILE_PATH), conf);
+
+		Job job = new Job(conf,DendrogramCreationJob.class.getName());
+
+		//setup fileConvert class to hadoop
+		job.setJarByClass(DendrogramCreationJob.class);
+
+		job.setMapperClass(DendrogramMapper.class);
+		job.setReducerClass(DendrogramReducer.class);
+		job.setPartitionerClass(DendrogramPartitioner.class);
+		
+		//setup input and output format
+		job.setInputFormatClass(GroupInputFormat.class);
+		//job.setOutputFormatClass(TextOutputFormat.class);
+		LazyOutputFormat.setOutputFormatClass(job, TextOutputFormat.class);
+
+		//setup key and value class
+		job.setMapOutputKeyClass(Text.class);
+		job.setMapOutputValueClass(Text.class);
+
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+
+		GroupInputFormat.addInputPath(job, new Path(otherArgs[0]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+
+		return job;
+	}
+
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+    }
+}

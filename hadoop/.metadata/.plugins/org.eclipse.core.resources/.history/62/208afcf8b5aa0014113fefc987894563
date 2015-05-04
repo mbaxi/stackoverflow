@@ -1,0 +1,23 @@
+package com.mbaxi.hadoop;
+
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+
+/**
+ * Hello world!
+ *
+ */
+public class MapRedA 
+{
+	private static class MapRedAMapper extends Mapper<LongWritable,Text,Text,Text> {
+		
+	}
+	private static class MapRedAReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
+	
+	}
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+    }
+}

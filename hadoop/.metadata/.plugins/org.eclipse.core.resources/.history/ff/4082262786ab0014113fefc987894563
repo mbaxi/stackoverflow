@@ -1,0 +1,31 @@
+package com.mbaxi.hadoop;
+
+import java.io.IOException;
+
+import org.apache.hadoop.mapreduce.Job;
+
+public class WorkFlow {
+
+	public static void main(String[] args) throws ClassNotFoundException, IOException, InterruptedException {
+		processJobA(args);
+		processJobB(args);
+
+	}
+
+	private static void processJobB(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+
+		
+	}
+
+	private static void processJobA(String[] args) {
+		String inputPath = args[0];
+		String outPath = args[1];
+		
+		String[] inPaths = new String[]{inputPath, outPath}; 
+				
+		Job mapRedA = MapRedA.getJob(inPaths); 
+		mapRedA.submit();
+		mapRedA.waitForCompletion(true);
+	}
+
+}

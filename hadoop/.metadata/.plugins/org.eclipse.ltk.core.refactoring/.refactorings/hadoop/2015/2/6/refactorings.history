@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.mbaxi.hadoop.App&apos; to &apos;MapRedA&apos;&#x0D;&#x0A;- Original project: &apos;hadoop&apos;&#x0D;&#x0A;- Original element: &apos;com.mbaxi.hadoop.App&apos;&#x0D;&#x0A;- Renamed element: &apos;com.mbaxi.hadoop.MapRedA&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;App&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java&lt;com.mbaxi.hadoop{App.java[App" matchStrategy="1" name="MapRedA" qualified="false" references="true" similarDeclarations="false" stamp="1422861056465" textual="false" version="1.0"/>
+</session>
