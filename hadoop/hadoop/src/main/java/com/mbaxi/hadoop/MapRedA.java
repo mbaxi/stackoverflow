@@ -37,6 +37,7 @@ public class MapRedA
 	    		word.set(itr.nextToken());
 	    		context.write(word, one);
 	    		out.write(new Text(word), one,"MapRed_A_MapperOutput/part");
+	    		//some edit
 	    	}
 	    }
 	    @Override
